@@ -1,2 +1,42 @@
 # Forslag til tilsvarende DCAT, men for API-beskrivelser istedenfor datasettbeskrivelser
-# 
+# Hovedkilde er turtle-fil for DCAT, https://www.w3.org/ns/dcat.ttl
+
+#alle prefix kopiert fra https://www.w3.org/ns/dcat.ttl
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
+@prefix owl: <http://www.w3.org/2002/07/owl#>.
+@prefix dc: <http://purl.org/dc/elements/1.1/>.
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#>.
+@prefix foaf: <http://xmlns.com/foaf/0.1/>.
+@prefix dcat: <http://www.w3.org/ns/dcat#>.
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>.
+@prefix dctype: <http://purl.org/dc/dcmitype/>.
+@prefix skos: <http://www.w3.org/2004/02/skos/core#>.
+@prefix dct: <http://purl.org/dc/terms/>.
+@prefix vann: <http://purl.org/vocab/vann/>.
+@prefix voaf: <http://purl.org/vocommons/voaf#>.
+@prefix v: <http://www.w3.org/2006/vcard/ns#>.
+@prefix schema: <http://schema.org/>.
+
+<http://skagemo.no/ns/acat>
+	a owl:Ontology, voaf:Vocabulary;
+	rdfs:label "The API-catalog vocabulary"@en;
+	rdfs:comment """
+	ACAT is an RDF vocabulary designed to facilitate interoperability between API-catalogs published on the Web. By using ACAT to describe APIs in API catalogs, publishers increase discoverability and enable applications easily to consume metadata from multiple catalogs. 
+	This work is done as part of the development of the Norwegian National Data Catalog - https://fellesdatakatalog.brreg.no.
+	This is a draft of the ACAT-vocabulary.""";
+	dct:creator [foaf:name "Steinar Skagemo"; rdfs:seeAlso <http://skagemo.no/me>].
+	
+# ISSUE: Skal vi gjenbruke dcat:Catalog eller lage acat:Catalog, mer eller mindre identisk?
+# dcat:Catalog er ferdig definert, gjenbrukbar, etc, men all tekstlig beskrivelse (label,
+# comment etc) viser til at det handler om _dataset_.
+# SKOS-AP-NO gjenbruker dcat:contactPoint - selv om definisjonen er "Links a dataset to ...", og 
+# dcat:theme, selv om kommentaren er "The main category of the dataset ..."
+# Forslag: Endre DCAT til å skille mellom det som fellesnevner for alle oppføringer i en
+# "datakatalog", og det som er relevant for datasettbeskrivelser. Da kan elementer som "Catalog",
+# "record", "theme", "contactPoint" etc være uavhengig av hvilken type katalogelement det dreier
+# seg om, datasettbeskrivelse, API-beskrivelse, informasjonsmodell-beskrivelse, begrepsbeskrivelse
+# osv.
+# På kort sikt kan vi antageligvis uansett forholde oss til vokabularet på denne måten, siden de
+# tekstlige beskrivelsene ikke har effekt på valideringen.
+
+	
