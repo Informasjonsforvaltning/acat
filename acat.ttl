@@ -24,8 +24,14 @@
 	ACAT is an RDF vocabulary designed to facilitate interoperability between API-catalogs published on the Web. By using ACAT to describe APIs in API catalogs, publishers increase discoverability and enable applications easily to consume metadata from multiple catalogs. 
 	This work is done as part of the development of the Norwegian National Data Catalog - https://fellesdatakatalog.brreg.no.
 	This is a draft of the ACAT-vocabulary.""";
-	dct:creator [foaf:name "Steinar Skagemo"; rdfs:seeAlso <http://skagemo.no/me>].
-	
+	dct:creator [foaf:name "Steinar Skagemo"; rdfs:seeAlso <http://skagemo.no/me>];
+	dc:title "API Catalog Vocabulary"@en;
+    dc:description """
+    ACAT is an RDF vocabulary designed to facilitate interoperability between API-catalogs published on the Web. By using ACAT to describe APIs in API catalogs, publishers increase discoverability and enable applications easily to consume metadata from multiple catalogs. 
+	This work is done as part of the development of the Norwegian National Data Catalog - https://fellesdatakatalog.brreg.no.
+	This is a draft of the ACAT-vocabulary."""@en;
+	dc:creator [foaf:name "Steinar Skagemo"; rdfs:seeAlso <http://skagemo.no/me>].
+
 # ISSUE: Skal vi gjenbruke dcat:Catalog eller lage acat:Catalog, mer eller mindre identisk?
 # dcat:Catalog er ferdig definert, gjenbrukbar, etc, men all tekstlig beskrivelse (label,
 # comment etc) viser til at det handler om _dataset_.
