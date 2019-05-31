@@ -21,19 +21,19 @@
 	a owl:Ontology, voaf:Vocabulary;
 	rdfs:label "The API-catalog vocabulary"@en;
 	rdfs:comment """
-	ACAT is an RDF vocabulary designed to facilitate interoperability between API-catalogs published on the Web. By using ACAT to describe APIs in API catalogs, publishers increase discoverability and enable applications easily to consume metadata from multiple catalogs. 
+	ACAT is an RDF vocabulary designed to facilitate interoperability between API-catalogs published on the Web. By using ACAT to describe APIs in API catalogs, publishers increase discoverability and enable applications easily to consume metadata from multiple catalogs.
 	This work is done as part of the development of the Norwegian National Data Catalog - https://fellesdatakatalog.brreg.no.
 	This is a draft of the ACAT-vocabulary.""";
 	dc:title "API Catalog Vocabulary"@en;
     dc:description """
-    ACAT is an RDF vocabulary designed to facilitate interoperability between API-catalogs published on the Web. By using ACAT to describe APIs in API catalogs, publishers increase discoverability and enable applications easily to consume metadata from multiple catalogs. 
+    ACAT is an RDF vocabulary designed to facilitate interoperability between API-catalogs published on the Web. By using ACAT to describe APIs in API catalogs, publishers increase discoverability and enable applications easily to consume metadata from multiple catalogs.
 	This work is done as part of the development of the Norwegian National Data Catalog - https://fellesdatakatalog.brreg.no.
-	This is a draft of the ACAT-vocabulary."""@en;
+	This is a draft of the ACAT-vocabulary."""@en.
 
 # ISSUE: Skal vi gjenbruke dcat:Catalog eller lage acat:Catalog, mer eller mindre identisk?
 # dcat:Catalog er ferdig definert, gjenbrukbar, etc, men all tekstlig beskrivelse (label,
 # comment etc) viser til at det handler om _dataset_.
-# SKOS-AP-NO gjenbruker dcat:contactPoint - selv om definisjonen er "Links a dataset to ...", og 
+# SKOS-AP-NO gjenbruker dcat:contactPoint - selv om definisjonen er "Links a dataset to ...", og
 # dcat:theme, selv om kommentaren er "The main category of the dataset ..."
 # Forslag: Endre DCAT til å skille mellom det som fellesnevner for alle oppføringer i en
 # "datakatalog", og det som er relevant for datasettbeskrivelser. Da kan elementer som "Catalog",
@@ -42,5 +42,4 @@
 # osv.
 # På kort sikt kan vi antageligvis uansett forholde oss til vokabularet på denne måten, siden de
 # tekstlige beskrivelsene ikke har effekt på valideringen.
-
-	
+# Oppdatering: Sendt spørsmål til Øystein 2019-05-31
