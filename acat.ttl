@@ -102,19 +102,32 @@ acat:contactPoint a rdf:Property, owl:ObjectProperty;
     rdfs:domain acat:API;
     rdfs:range v:Kind.
 
+acat:description a rdf:Property, owl:DatatypeProperty;
+    rdfs:label "keyword"@en;
+    rdfs:comment "A short text describing the API."@en;
+    rdfs:domain acat:API;
+    rdfs:range rdfs:Literal.
+
 acat:keyword a rdf:Property, owl:DatatypeProperty;
     rdfs:label "keyword"@en;
     rdfs:comment "A keyword or tag describing the API."@en;
     rdfs:domain acat:API;
-    rdfs:range xsd:Literal.
+    rdfs:range rdfs:Literal.
+
+# Verdi for denne er typisk http, SOAP, JSON-RPC, GRPC etc 
+# Ønskelig at dette attributtet hadde kommet fra egnet vokabular men har ikke funnet noe 
+acat:protocol a rdf:Property, owl:DatatypeProperty;
+    rdfs:label "keyword"@en;
+    rdfs:comment "A keyword or tag describing the API."@en;
+    rdfs:domain acat:API;
+    rdfs:range rdfs:Literal.
 
 acat:accessURL a rdf:Property, owl:ObjectProperty;
     rdfs:isDefinedBy <https://archive.org/services/purl/domain/vocab-acat>;
     rdfs:label "access URL"@en;
     rdfs:domain acat:API;
     rdfs:range rdfs:Resource;
-    rdfs:comment """Could be any kind of URL endpoint."""@en;
-.
+    rdfs:comment """Could be any kind of URL endpoint."""@en.
 
 acat:nationalComponent a rdf:Property, owl:DatatypeProperty;
     rdfs:isDefinedBy <https://archive.org/services/purl/domain/vocab-acat>;
@@ -132,5 +145,18 @@ dct:accessRights a rdf:Property, owl:ObjectProperty;
 dct:title a rdf:Property, owl:DatatypeProperty;
     rdfs:label "title"@en;
     rdfs:comment "Title of the API."@en;
+    rdfs:domain acat:API;
+    rdfs:range rdfs:Literal.
+
+#Endring av selve API eller endring av kataloglisting?
+dct:modified a rdf:Property, owl:DatatypeProperty;
+    rdfs:label "modified"@en;
+    rdfs:comment "Date of last change to API."@en;
+    rdfs:domain acat:API;
+    rdfs:range rdfs:Literal.
+
+dct:created a rdf:Property, owl:DatatypeProperty;
+    rdfs:label "created"@en;
+    rdfs:comment "Date of API creation."@en;
     rdfs:domain acat:API;
     rdfs:range rdfs:Literal.
