@@ -1,13 +1,12 @@
 # Forslag til tilsvarende DCAT, men for API-beskrivelser istedenfor datasettbeskrivelser
 # Hovedkilde er turtle-fil for DCAT, https://www.w3.org/ns/dcat.ttl
 
-#alle prefix kopiert fra https://www.w3.org/ns/dcat.ttl
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>.
 @prefix owl: <http://www.w3.org/2002/07/owl#>.
 @prefix dc: <http://purl.org/dc/elements/1.1/>.
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#>.
 @prefix foaf: <http://xmlns.com/foaf/0.1/>.
-@prefix dcat: <http://www.w3.org/ns/dcat#>.
+@prefix acat: <https://archive.org/services/purl/domain/acat#>.
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>.
 @prefix dctype: <http://purl.org/dc/dcmitype/>.
 @prefix skos: <http://www.w3.org/2004/02/skos/core#>.
@@ -17,29 +16,147 @@
 @prefix v: <http://www.w3.org/2006/vcard/ns#>.
 @prefix schema: <http://schema.org/>.
 
-<http://skagemo.no/ns/acat>
-	a owl:Ontology, voaf:Vocabulary;
-	rdfs:label "The API-catalog vocabulary"@en;
-	rdfs:comment """
-	ACAT is an RDF vocabulary designed to facilitate interoperability between API-catalogs published on the Web. By using ACAT to describe APIs in API catalogs, publishers increase discoverability and enable applications easily to consume metadata from multiple catalogs.
-	This work is done as part of the development of the Norwegian National Data Catalog - https://fellesdatakatalog.brreg.no.
-	This is a draft of the ACAT-vocabulary.""";
-	dc:title "API Catalog Vocabulary"@en;
-    dc:description """
-    ACAT is an RDF vocabulary designed to facilitate interoperability between API-catalogs published on the Web. By using ACAT to describe APIs in API catalogs, publishers increase discoverability and enable applications easily to consume metadata from multiple catalogs.
-	This work is done as part of the development of the Norwegian National Data Catalog - https://fellesdatakatalog.brreg.no.
-	This is a draft of the ACAT-vocabulary."""@en.
+<https://archive.org/services/purl/domain/acat>
+    a owl:Ontology, voaf:Vocabulary;
+    rdfs:label "The API-catalog vocabulary"@en;
+    rdfs:comment """ACAT is an RDF vocabulary designed to facilitate interoperability between API-catalogs published on the Web. 
+	By using ACAT to describe APIs in API catalogs, publishers increase discoverability and enable applications easily to consume metadata from multiple catalogs.
+        This work is done as part of the development of the Norwegian National Data Catalog - https://fellesdatakatalog.brreg.no.
+        This is a draft of the ACAT-vocabulary.""";
+    dc:title "API Catalog Vocabulary"@en;
+    dc:description """ACAT is an RDF vocabulary designed to facilitate interoperability between API-catalogs published on the Web. 
+	By using ACAT to describe APIs in API catalogs, publishers increase discoverability and enable applications easily to consume metadata from multiple catalogs.
+        This work is done as part of the development of the Norwegian National Data Catalog - https://fellesdatakatalog.brreg.no.
+        This is a draft of the ACAT-vocabulary."""@en.
 
-# ISSUE: Skal vi gjenbruke dcat:Catalog eller lage acat:Catalog, mer eller mindre identisk?
-# dcat:Catalog er ferdig definert, gjenbrukbar, etc, men all tekstlig beskrivelse (label,
-# comment etc) viser til at det handler om _dataset_.
-# SKOS-AP-NO gjenbruker dcat:contactPoint - selv om definisjonen er "Links a dataset to ...", og
-# dcat:theme, selv om kommentaren er "The main category of the dataset ..."
-# Forslag: Endre DCAT til å skille mellom det som fellesnevner for alle oppføringer i en
-# "datakatalog", og det som er relevant for datasettbeskrivelser. Da kan elementer som "Catalog",
-# "record", "theme", "contactPoint" etc være uavhengig av hvilken type katalogelement det dreier
-# seg om, datasettbeskrivelse, API-beskrivelse, informasjonsmodell-beskrivelse, begrepsbeskrivelse
-# osv.
-# På kort sikt kan vi antageligvis uansett forholde oss til vokabularet på denne måten, siden de
-# tekstlige beskrivelsene ikke har effekt på valideringen.
-# Oppdatering: Sendt spørsmål til Øystein 2019-05-31
+acat:Resource a rdfs:Class, owl:Class ;
+  rdfs:isDefinedBy <https://archive.org/services/purl/domain/vocab-acat>;
+  rdfs:comment "Resource published or curated by a single agent" ;
+  rdfs:label "Catalogued resource" ;
+  skos:scopeNote """The class of all catalogued resources, the Superclass of
+    acat:API, acat:Catalog and any other member of a acat:Catalog.
+    This class carries properties common to all catalogued resources, including apis.
+    It is strongly recommended to use a more specific sub-class when available.""" ;
+.
+
+# Catalog
+
+acat:Catalog a rdfs:Class, owl:Class;
+    rdfs:isDefinedBy <https://archive.org/services/purl/domain/vocab-acat>;
+    rdfs:label "Catalog"@en;
+    rdfs:comment "A curated collection of metadata about datasets"@en;
+.
+
+acat:api a rdf:Property, owl:ObjectProperty;
+    rdfs:isDefinedBy <https://archive.org/services/purl/domain/vocab-acat>;
+    rdfs:label "api"@en;
+    rdfs:subPropertyOf dct:hasPart;
+    rdfs:domain acat:Catalog;
+    rdfs:range acat:API.
+
+acat:record a rdf:Property, owl:ObjectProperty;
+    rdfs:isDefinedBy <https://archive.org/services/purl/domain/vocab-acat>;
+    rdfs:label "record"@en;
+    rdfs:comment "Links a catalog to its records."@en;
+    rdfs:domain acat:Catalog;
+    rdfs:range acat:CatalogRecord.
+
+#Catalog Record
+
+acat:CatalogRecord a rdfs:Class, owl:Class;
+    rdfs:isDefinedBy <https://archive.org/services/purl/domain/vocab-acat>;
+    rdfs:label "Catalog Record"@en;
+    rdfs:comment "A record in an API catalog, describing a single dataset."@en;
+    vann:usageNote """This class is optional and not all catalogs will use it. It exists for
+            catalogs where a distinction is made between metadata about a dataset and 
+            metadata about the dataset's entry in the catalog. For example, the publication 
+            date property of the dataset reflects the date when the information was originally 
+            made available by the publishing agency, while the publication date of the catalog 
+            record is the date when the dataset was added to the catalog. In cases where both
+            dates differ, or where only the latter is known, the publication date should only 
+            be specified for the catalog record. Notice that the W3C PROV Ontology allows 
+            describing further provenance information such as the details of the process and the 
+            agent involved in a particular change to a dataset."""@en;
+.
+# API
+acat:API a rdfs:Class, owl:Class;
+    rdfs:isDefinedBy <https://archive.org/services/purl/domain/vocab-acat>;
+    rdfs:label "API"@en;
+    rdfs:comment "A machine accessible interface that provides functionality from another computer system"@en;
+    rdfs:subClassOf dctype:Service;
+    rdfs:subClassOf acat:Resource ;
+    vann:usageNote """This class represents the actual API as published by the API publisher."""@en;
+.
+acat:landingPage a rdf:Property, owl:ObjectProperty;
+    rdfs:isDefinedBy <https://archive.org/services/purl/domain/vocab-acat>;
+    rdfs:label "landing page"@en;
+    rdfs:comment "A Web page that can be navigated to in a Web browser to gain access to the API and additional information."@en;
+    rdfs:subPropertyOf foaf:Page;
+    rdfs:domain acat:API;
+    rdfs:range foaf:Document;
+.
+acat:contactPoint a rdf:Property, owl:ObjectProperty;
+    rdfs:isDefinedBy <https://archive.org/services/purl/domain/vocab-acat>;
+    rdfs:label "contact point"@en;
+    rdfs:comment "Links an api to relevant contact information which is provided using VCard."@en;
+    rdfs:domain acat:API;
+    rdfs:range v:Kind.
+
+acat:description a rdf:Property, owl:DatatypeProperty;
+    rdfs:label "keyword"@en;
+    rdfs:comment "A short text describing the API."@en;
+    rdfs:domain acat:API;
+    rdfs:range rdfs:Literal.
+
+acat:keyword a rdf:Property, owl:DatatypeProperty;
+    rdfs:label "keyword"@en;
+    rdfs:comment "A keyword or tag describing the API."@en;
+    rdfs:domain acat:API;
+    rdfs:range rdfs:Literal.
+
+# Verdi for denne er typisk http, SOAP, JSON-RPC, GRPC etc 
+# Ønskelig at dette attributtet hadde kommet fra egnet vokabular men har ikke funnet noe 
+acat:protocol a rdf:Property, owl:DatatypeProperty;
+    rdfs:label "keyword"@en;
+    rdfs:comment "A keyword or tag describing the API."@en;
+    rdfs:domain acat:API;
+    rdfs:range rdfs:Literal.
+
+acat:accessURL a rdf:Property, owl:ObjectProperty;
+    rdfs:isDefinedBy <https://archive.org/services/purl/domain/vocab-acat>;
+    rdfs:label "access URL"@en;
+    rdfs:domain acat:API;
+    rdfs:range rdfs:Resource;
+    rdfs:comment """Could be any kind of URL endpoint."""@en.
+
+acat:nationalComponent a rdf:Property, owl:DatatypeProperty;
+    rdfs:isDefinedBy <https://archive.org/services/purl/domain/vocab-acat>;
+        rdfs:label "national component"@en;
+        rdfs:comment "Does this API represent a national common component?"@en;
+        rdfs:domain acat:API;
+        rdfs:range xsd:boolean.
+
+dct:accessRights a rdf:Property, owl:ObjectProperty;
+    rdfs:label "access rights"@en;
+    rdfs:comment "Information about who can access the resource or an indication of its security status."@en;
+    rdfs:domain acat:API;
+    rdfs:range dct:RightsStatement.
+
+dct:title a rdf:Property, owl:DatatypeProperty;
+    rdfs:label "title"@en;
+    rdfs:comment "Title of the API."@en;
+    rdfs:domain acat:API;
+    rdfs:range rdfs:Literal.
+
+#Endring av selve API eller endring av kataloglisting?
+dct:modified a rdf:Property, owl:DatatypeProperty;
+    rdfs:label "modified"@en;
+    rdfs:comment "Date of last change to API."@en;
+    rdfs:domain acat:API;
+    rdfs:range rdfs:Literal.
+
+dct:created a rdf:Property, owl:DatatypeProperty;
+    rdfs:label "created"@en;
+    rdfs:comment "Date of API creation."@en;
+    rdfs:domain acat:API;
+    rdfs:range rdfs:Literal.
