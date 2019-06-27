@@ -103,7 +103,7 @@ acat:contactPoint a rdf:Property, owl:ObjectProperty;
     rdfs:range v:Kind.
 
 acat:description a rdf:Property, owl:DatatypeProperty;
-    rdfs:label "keyword"@en;
+    rdfs:label "description"@en;
     rdfs:comment "A short text describing the API."@en;
     rdfs:domain acat:API;
     rdfs:range rdfs:Literal.
@@ -117,7 +117,7 @@ acat:keyword a rdf:Property, owl:DatatypeProperty;
 # Verdi for denne er typisk http, SOAP, JSON-RPC, GRPC etc 
 # Ønskelig at dette attributtet hadde kommet fra egnet vokabular men har ikke funnet noe 
 acat:protocol a rdf:Property, owl:DatatypeProperty;
-    rdfs:label "keyword"@en;
+    rdfs:label "protocol"@en;
     rdfs:comment "A keyword or tag describing the API."@en;
     rdfs:domain acat:API;
     rdfs:range rdfs:Literal.
