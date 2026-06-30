@@ -1,5 +1,7 @@
 # Arbeid med vokabular for API-kataloger, ACAT
 
+> ⚠️ This repository is archived and is no longer maintained. Vocabulary for API catalogues is covered by https://github.com/Informasjonsforvaltning/dcat-ap-no
+
 Som: forvalter av API-katalog
 
 Ønsker jeg å: ha noe à la DCAT-AP-NO og SKOS-AP-NO
